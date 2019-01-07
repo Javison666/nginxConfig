@@ -1,13 +1,6 @@
 <template>
 	<div>
-		<md-toolbar>
-			<h3 class="md-title" style="flex: 1">
-				<span>项目列表 - PROJECT LIST</span>
-			</h3>
-			<md-button class="md-fab md-mini md-primary">
-				<md-icon>add</md-icon>
-			</md-button>
-		</md-toolbar>
+		<header-top></header-top>
 		<div class="row">
 			<input-check-port v-model="port"></input-check-port>
 		</div>
@@ -17,10 +10,13 @@
 <script>
 import InputCheckPort from '_c/InputCheckPort'
 
+import HeaderTop from './header'
+
 export default {
 	name: 'nginx',
 	components: {
-		InputCheckPort
+		InputCheckPort,
+		HeaderTop
 	},
 	data() {
 		return {
