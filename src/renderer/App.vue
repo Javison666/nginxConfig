@@ -1,48 +1,43 @@
 <template>
 	<div id="app">
-		<v-app>
-			<v-navigation-drawer app
-			    fixed
-			    clipped>
-				<v-list>
-					<v-list-tile v-for="i in 3"
-					    :to="{path: '/page' + i}">
-						<v-list-tile-action>
-							<v-icon>{{ icons[i-1] }}</v-icon>
-						</v-list-tile-action>
-						<v-list-tile-content>
-							<v-list-tile-title>Page {{ i }}</v-list-tile-title>
-						</v-list-tile-content>
-					</v-list-tile>
-				</v-list>
-			</v-navigation-drawer>
-			<v-toolbar app
-			    fixed
-			    clipped-left>
-				<v-menu :nudge-width="-100">
-					<v-toolbar-title slot="activator">
-						Toolbar
-					</v-toolbar-title>
-					<v-list>
-						<v-list-tile :to="'/page1'">
-							Settings
-						</v-list-tile>
-						<v-list-tile :to="'/page2'">
-							<v-list-tile-title v-text="'Account'"></v-list-tile-title>
-						</v-list-tile>
-					</v-list>
-				</v-menu>
-			</v-toolbar>
-			<v-content>
-				<v-container fluid>
-					<v-fade-transition mode="out-in">
-						<router-view></router-view>
-					</v-fade-transition>
-				</v-container>
-			</v-content>
-		</v-app>
-		<router-view></router-view>
+		<div class="page-container">
+			<md-app md-waterfall
+			    md-mode="fixed">
+				<md-app-drawer md-permanent="full">
+					<!-- <md-toolbar class="md-transparent"
+					    md-elevation="0">
+						Navigation
+					</md-toolbar> -->
+
+					<md-list class="menu-list">
+						
+						<router-link to="/nginx"
+						    class="menu-list-item"
+						    active-class="menu-list-item-active"
+						    tag="div">
+							<md-list-item>
+								<md-icon>wrap_text</md-icon>
+								<span class="md-list-item-text">NGINX</span>
+							</md-list-item>
+						</router-link>
+						<router-link to="/port"
+						    class="menu-list-item"
+						    active-class="menu-list-item-active"
+						    tag="div">
+							<md-list-item>
+								<md-icon>show_chart</md-icon>
+								<span class="md-list-item-text">PORT</span>
+							</md-list-item>
+						</router-link>
+					</md-list>
+				</md-app-drawer>
+				<md-app-content>
+					<router-view></router-view>
+				</md-app-content>
+			</md-app>
+		</div>
 		<!-- <header  style="-webkit-app-region: drag"></header> -->
+
 	</div>
 </template>
 
@@ -55,11 +50,43 @@ export default {
 	}
 }
 </script>
-
-<style>
+<style lang="less" scoped>
+#app,
+.page-container {
+    width: 100%;
+    height: 100%;
+}
 /* CSS */
-header {
+.header {
     height: 30px;
     background: #eaeaea;
+}
+
+.md-app {
+    height: 100%;
+    border: 1px solid rgba(#000, 0.12);
+}
+.md-drawer {
+    width: 160px !important;
+    max-width: calc(100vw - 125px);
+    border-right: 1px solid #000;
+}
+.menu-list {
+    .menu-list-item {
+        transition: all 0.2s;
+        &:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+    }
+    .menu-list-item-active {
+        background: rgba(0, 0, 0, 1);
+        color: #fff;
+        &:hover {
+            background: rgba(0, 0, 0, 1);
+        }
+    }
+}
+.menu-list-item {
+    cursor: pointer;
 }
 </style>
