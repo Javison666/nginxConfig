@@ -8,6 +8,7 @@ import store from './store'
 import '@/assets/css/global/index.less'
 import 'animate.css/animate.css'
 import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 // import 'vue-material/dist/theme/default-dark.css' // This line here
 import VueMaterial from 'vue-material'
 

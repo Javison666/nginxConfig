@@ -69,7 +69,7 @@ export default {
 .md-drawer {
     width: 160px !important;
     max-width: calc(100vw - 125px);
-    border-right: 1px solid #000;
+    border-right: 1px solid #eaeaea;
 }
 .menu-list {
     .menu-list-item {
@@ -79,10 +79,13 @@ export default {
         }
     }
     .menu-list-item-active {
-        background: rgba(0, 0, 0, 1);
-        color: #fff;
+		.md-icon-font{
+			color: #448aff;
+		}
+        background: rgba(0, 0, 0, 0.1);
+        color: #448aff;
         &:hover {
-            background: rgba(0, 0, 0, 1);
+            background: rgba(0, 0, 0, 0.1);
         }
     }
 }
