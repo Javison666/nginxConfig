@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<md-toolbar>
-			<h3 class="md-title">
+			<h3 class="md-title" style="flex: 1">
 				<span>项目列表 - PROJECT LIST</span>
-				<md-button class="md-fab md-mini md-primary">
-					<md-icon>add</md-icon>
-				</md-button>
 			</h3>
+			<md-button class="md-fab md-mini md-primary">
+				<md-icon>add</md-icon>
+			</md-button>
 		</md-toolbar>
 		<div class="row">
 			<input-check-port v-model="port"></input-check-port>
