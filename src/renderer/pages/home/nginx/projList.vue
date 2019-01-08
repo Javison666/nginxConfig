@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="proj-list">
         <md-list>
             <div class="fix-top"></div>
             <md-list-item
@@ -9,13 +9,16 @@
                 :key="index"
             >
                 <md-icon style="flex: 1">input</md-icon>
-                <span style="flex: 4;">{{item.name}}</span>
+                <router-link to="/nginx-proj/123" style="flex: 5">
+                    <span style="flex: 4;">{{item.name}}</span>
+                </router-link>
                 <span style="flex: 1" @click.stop>
                     <md-switch v-model="item.switch" class="md-primary" style="cursor:pointer;"></md-switch>
                 </span>
                 <span style="flex: 1">
-                    <span @click="delActive=true"><md-icon>delete</md-icon></span>
-                    
+                    <span @click="delActive=true">
+                        <md-icon>delete</md-icon>
+                    </span>
                 </span>
             </md-list-item>
         </md-list>
@@ -102,4 +105,6 @@ export default {
         border-top: 0;
     }
 }
+</style>
+<style lang="less">
 </style>

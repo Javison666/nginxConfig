@@ -4,10 +4,10 @@
 			<md-app md-waterfall
 			    md-mode="fixed">
 				<md-app-drawer md-permanent="full">
-					<!-- <md-toolbar class="md-transparent"
+					<md-toolbar class="md-transparent"
 					    md-elevation="0">
-						Navigation
-					</md-toolbar> -->
+						EASY-TOOL
+					</md-toolbar>
 
 					<md-list class="menu-list">
 						

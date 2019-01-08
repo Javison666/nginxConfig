@@ -1,0 +1,132 @@
+<template>
+    <div>
+        <div class="header-top">
+            <md-toolbar class="md-primary" :md-fixed="true">
+                <router-link to="/nginx">
+                    <md-icon>navigate_before</md-icon>
+                </router-link>
+                <router-link to="/nginx" style="flex: 1">
+                    <h3 class="md-title">
+                        <span>项目列表</span>
+                    </h3>
+                </router-link>
+                <h3 class="md-title" style="flex: 1;text-align:center;">
+                    <span>云管理</span>
+                </h3>
+                <span style="flex: 1;">
+                    <md-button class="md-fab md-mini" style="float:right;">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </span>
+            </md-toolbar>
+        </div>
+        <div class="item-list">
+            <md-list>
+                <div class="fix-top"></div>
+                <md-list-item
+                    v-for="(item,index) in itemList"
+                    class="list-item"
+                    @click.stop
+                    :key="index"
+                >
+                    <md-icon style="flex: 1">input</md-icon>
+                    <router-link to="/nginx-proj/123" style="flex: 5">
+                        <span style="flex: 4;">{{item.name}}</span>
+                    </router-link>
+                    <span style="flex: 1" @click.stop>
+                        <md-switch v-model="item.switch" class="md-primary" style="cursor:pointer;"></md-switch>
+                    </span>
+                    <span style="flex: 1">
+                        <span>
+                            <md-icon>delete</md-icon>
+                        </span>
+                    </span>
+                </md-list-item>
+            </md-list>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            itemList: [
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                }
+            ]
+        };
+    }
+};
+</script>
+<style lang="less" scoped>
+.header-top {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 10;
+    width: calc(100% - 32px);
+}
+.item-list{
+    padding-top: 50px;
+}
+.fix-top {
+    height: 70px;
+    width: calc(100% - 20px);
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 1px;
+    background: #fff;
+}
+</style>
