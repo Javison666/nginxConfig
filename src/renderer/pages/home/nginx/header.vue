@@ -6,14 +6,14 @@
                 <span>项目列表 - PROJECT LIST</span>
             </h3>
             <md-button class="md-fab md-mini md-primary" @click="active = true">
-                <md-icon>add</md-icon>
+                <md-icon>playlist_add</md-icon>
             </md-button>
         </md-toolbar>
         <md-dialog-prompt :md-active.sync="active"
             v-model="value"
-            md-title="What's your name?"
+            md-title="请输入项目名称"
             md-input-maxlength="30"
-            md-input-placeholder="Type your name..."
+            md-input-placeholder="Type your project's name..."
             md-confirm-text="Done" />
     </div>
 

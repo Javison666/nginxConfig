@@ -6,8 +6,8 @@ Vue.use(Router)
 export default new Router({
 	routes: [{
 			path: '/port',
-			name: 'landing-page',
-			component: require('@/components/LandingPage').default,
+			name: 'port',
+			component: require('@/pages/home/port').default,
 		},{
 			path: '/nginx',
 			name: 'nginx',
@@ -15,7 +15,7 @@ export default new Router({
 		},
 		{
 			path: '*',
-			redirect: '/port'
+			redirect: '/nginx'
 		}
 	]
 })

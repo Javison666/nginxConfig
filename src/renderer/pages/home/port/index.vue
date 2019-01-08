@@ -1,24 +1,22 @@
 <template>
 	<div>
-		<header-top class=header-top></header-top>
-		<proj-list class="proj-list md-scrollbar"></proj-list>
+		<div class="row">
+			<input-check-port v-model="port"></input-check-port>
+		</div>
 	</div>
 </template>
 
 <script>
 import InputCheckPort from '_c/InputCheckPort'
 
-import HeaderTop from './header'
-import ProjList from './projList'
-
 export default {
 	name: 'nginx',
 	components: {
-		HeaderTop,
-		ProjList
+		InputCheckPort,
 	},
 	data() {
 		return {
+			port: ''
 		}
 	},
 	mounted() {
@@ -35,13 +33,5 @@ export default {
 .row {
     margin-top: 20px;
     margin-bottom: 20px;
-}
-.header-top{
-	position: fixed;
-	z-index: 10;
-	width: calc(100% - 32px);
-}
-.proj-list{
-	// height: calc(100vh - 70px);
 }
 </style>
