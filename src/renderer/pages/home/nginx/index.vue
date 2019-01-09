@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class=box>
 		<header-top class=header-top></header-top>
 		<proj-list class="proj-list md-scrollbar"></proj-list>
 	</div>
@@ -42,16 +42,24 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.row {
-    margin-top: 20px;
-    margin-bottom: 20px;
+div.box{
+	height: 100%;
+	position: relative;
+	overflow: hidden;
 }
 .header-top {
     position: fixed;
     z-index: 10;
-    width: calc(100% - 32px);
+	width: calc(100%);
+	left:0;
+	top:0;
 }
 .proj-list {
-    // height: calc(100vh - 70px);
+	position: absolute;
+	top:52px;
+	bottom:0;
+	left:0;
+	right:0;
+	overflow: auto;
 }
 </style>

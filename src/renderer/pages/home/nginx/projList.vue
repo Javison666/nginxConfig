@@ -72,6 +72,14 @@ export default {
                 {
                     name: "云管理",
                     switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
+                },
+                {
+                    name: "云管理",
+                    switch: true
                 }
             ]
         };
@@ -85,20 +93,8 @@ export default {
 .md-double-line {
     position: relative;
 }
-.md-list {
-    padding-top: 60px;
-}
-.fix-top {
-    height: 70px;
-    width: calc(100% - 20px);
-    position: fixed;
-    z-index: 9;
-    top: 0;
-    left: 1px;
-    background: #fff;
-}
 .list-item {
-    width: 90%;
+    width: calc(100% - 12px);
     margin: auto;
     border-top: 1px solid #eaeaea;
     &:nth-child(2) {

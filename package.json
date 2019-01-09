@@ -20,7 +20,7 @@
     "postinstall": ""
   },
   "build": {
-    "productName": "vue-app",
+    "productName": "easytool",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"

@@ -33,7 +33,7 @@
 						    tag="div">
 							<md-list-item>
 								<md-icon>show_chart</md-icon>
-								<span class="md-list-item-text">SYSTEM</span>
+								<span class="md-list-item-text">INFO</span>
 							</md-list-item>
 						</router-link>
 					</md-list>
@@ -80,11 +80,13 @@ export default {
     border: 1px solid rgba(#000, 0.12);
 }
 .md-drawer {
-    width: 160px !important;
+	padding-top: 30px!important;
+    width: 120px !important;
     max-width: calc(100vw - 125px);
     border-right: 1px solid #eaeaea;
 }
 .menu-list {
+	padding-top: 30px!important;
     .menu-list-item {
         transition: all 0.2s;
         &:hover {
@@ -104,5 +106,13 @@ export default {
 }
 .menu-list-item {
     cursor: pointer;
+}
+</style>
+<style lang="less">
+.md-app-content{
+	padding:0!important;
+}
+.md-list-item-content>.md-icon:first-child{
+	margin-right:10px!important;
 }
 </style>

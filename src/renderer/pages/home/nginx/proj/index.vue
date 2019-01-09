@@ -112,21 +112,18 @@ export default {
 <style lang="less" scoped>
 .header-top {
     position: fixed;
-    top: 16px;
-    left: 16px;
+    top: 0px;
+    left: 0px;
     z-index: 10;
-    width: calc(100% - 32px);
+    width: calc(100%);
+    overflow: hidden;
 }
 .item-list{
-    padding-top: 50px;
-}
-.fix-top {
-    height: 70px;
-    width: calc(100% - 20px);
-    position: fixed;
-    z-index: 9;
-    top: 0;
-    left: 1px;
-    background: #fff;
+    position: absolute;
+    top:52px;
+    bottom:0;
+    left:0;
+    right:0;
+    overflow: auto;
 }
 </style>
