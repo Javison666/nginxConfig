@@ -12,15 +12,18 @@ import 'vue-material/dist/theme/default.css'
 // import 'vue-material/dist/theme/default-dark.css' // This line here
 import VueMaterial from 'vue-material'
 
+import appApi from '@/api/app'
 import exec from './utils/exec'
 import fs from './utils/fs'
 
 Vue.use(VueMaterial)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+Vue.appApi = Vue.prototype.$appApi = appApi
 Vue.http = Vue.prototype.$http = axios
 Vue.exec = Vue.prototype.$exec = exec
 Vue.fs = Vue.prototype.$fs = fs
+Vue.process=Vue.prototype.$process = process
 Vue.config.productionTip = false
 
 

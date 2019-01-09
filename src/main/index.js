@@ -1,5 +1,9 @@
 import { app, BrowserWindow } from 'electron'
 
+// Store must be imported for the shitty vuex-electron sharedMutations
+/* eslint no-unused-vars: 0 */
+import store from '../renderer/store'
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html

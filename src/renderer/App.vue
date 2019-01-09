@@ -8,9 +8,7 @@
 					    md-elevation="0">
 						EASY-TOOL
 					</md-toolbar>
-
 					<md-list class="menu-list">
-						
 						<router-link to="/nginx"
 						    class="menu-list-item"
 						    active-class="menu-list-item-active"
@@ -29,6 +27,15 @@
 								<span class="md-list-item-text">PORT</span>
 							</md-list-item>
 						</router-link>
+						<router-link to="/system"
+						    class="menu-list-item"
+						    active-class="menu-list-item-active"
+						    tag="div">
+							<md-list-item>
+								<md-icon>show_chart</md-icon>
+								<span class="md-list-item-text">SYSTEM</span>
+							</md-list-item>
+						</router-link>
 					</md-list>
 				</md-app-drawer>
 				<md-app-content>
@@ -42,11 +49,17 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
 	data() {
 		return {
 			icons: ['dashboard', 'home', 'event']
 		}
+	},
+	mounted() {
+		this.$store.dispatch('local/actionAppInit')
+	},
+	methods: {
 	}
 }
 </script>
@@ -79,9 +92,9 @@ export default {
         }
     }
     .menu-list-item-active {
-		.md-icon-font{
-			color: #448aff;
-		}
+        .md-icon-font {
+            color: #448aff;
+        }
         background: rgba(0, 0, 0, 0.1);
         color: #448aff;
         &:hover {

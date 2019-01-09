@@ -19,13 +19,23 @@ export default {
 	},
 	data() {
 		return {
+			isInstalled:false
 		}
 	},
-	mounted() {
+	beforeRouteEnter(to, from, next) {
+		next(vm => {
+			vm.checkNginxExist()
+		})
 	},
 	methods: {
 		open(link) {
 			this.$electron.shell.openExternal(link)
+		},
+		async checkNginxExist(){
+			this.isInstalled=await this.$fs.isExist({
+				path:process.env.LOCALAPPDATA+'/jj-easy-tool'
+			})
+			// console.log(this.isInstalled)
 		}
 	}
 }
@@ -36,12 +46,12 @@ export default {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.header-top{
-	position: fixed;
-	z-index: 10;
-	width: calc(100% - 32px);
+.header-top {
+    position: fixed;
+    z-index: 10;
+    width: calc(100% - 32px);
 }
-.proj-list{
-	// height: calc(100vh - 70px);
+.proj-list {
+    // height: calc(100vh - 70px);
 }
 </style>

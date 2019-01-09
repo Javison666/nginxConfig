@@ -3,11 +3,16 @@
 		<div class="row">
 			<input-check-port v-model="port"></input-check-port>
 		</div>
+		<md-button class="md-fab md-mini md-primary"
+		    @click="runNginx">
+			运行
+		</md-button>
 	</div>
 </template>
 
 <script>
 import InputCheckPort from '_c/InputCheckPort'
+import path from 'path'
 
 export default {
 	name: 'nginx',
@@ -16,7 +21,8 @@ export default {
 	},
 	data() {
 		return {
-			port: ''
+			port: '',
+
 		}
 	},
 	mounted() {
@@ -24,6 +30,13 @@ export default {
 	methods: {
 		open(link) {
 			this.$electron.shell.openExternal(link)
+		},
+		runNginx() {
+			console.log(process)
+			// this.$exec.once({
+			// 	cmd: 'easynginx.exe',
+			// 	path: 'F:\\app\\electron\\nginxConfig\\static\\easy-nginx'
+			// })
 		}
 	}
 }

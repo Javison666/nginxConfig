@@ -86,7 +86,7 @@ export default {
     position: relative;
 }
 .md-list {
-    padding-top: 80px;
+    padding-top: 60px;
 }
 .fix-top {
     height: 70px;

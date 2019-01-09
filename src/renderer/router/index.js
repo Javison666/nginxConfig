@@ -17,6 +17,10 @@ export default new Router({
 			name:'nginx-proj-id',
 			component:require('@/pages/home/nginx/proj').default
 		},{
+			path:'/system',
+			name:'system',
+			component:require('@/pages/home/system').default
+		},{
 			path: '*',
 			redirect: '/nginx'
 		}
