@@ -6,7 +6,8 @@
 				<md-app-drawer md-permanent="full">
 					<md-toolbar class="md-transparent"
 					    md-elevation="0">
-						EASY-TOOL
+						<img width="80%" style="display:inline-block;margin:auto;" :src="`file:///${staticPath}/img/icon/icon.ico`" />
+						<p style="text-align:center;width:100%;padding:0!important;margin:0;">EASY-TOOL</p>
 					</md-toolbar>
 					<md-list class="menu-list">
 						<router-link to="/nginx"
@@ -27,12 +28,22 @@
 								<span class="md-list-item-text">PORT</span>
 							</md-list-item>
 						</router-link>
+						<router-link to="/ntfs"
+							v-show="$env.ifMac"
+						    class="menu-list-item"
+						    active-class="menu-list-item-active"
+						    tag="div">
+							<md-list-item>
+								<md-icon>usb</md-icon>
+								<span class="md-list-item-text">NTFS</span>
+							</md-list-item>
+						</router-link>
 						<router-link to="/system"
 						    class="menu-list-item"
 						    active-class="menu-list-item-active"
 						    tag="div">
 							<md-list-item>
-								<md-icon>show_chart</md-icon>
+								<md-icon>public</md-icon>
 								<span class="md-list-item-text">INFO</span>
 							</md-list-item>
 						</router-link>
@@ -44,15 +55,20 @@
 			</md-app>
 		</div>
 		<!-- <header  style="-webkit-app-region: drag"></header> -->
-
+		<modal-del></modal-del>
 	</div>
 </template>
 
 <script>
 import { setTimeout } from 'timers';
+import ModalDel from '_c/ModalDel'
 export default {
+	components:{
+		ModalDel
+	},
 	data() {
 		return {
+			staticPath:__static,
 			icons: ['dashboard', 'home', 'event']
 		}
 	},
@@ -85,7 +101,7 @@ export default {
     border: 1px solid rgba(#000, 0.12);
 }
 .md-drawer {
-	padding-top: 30px!important;
+	padding-top: 10px!important;
     width: 120px !important;
     max-width: calc(100vw - 125px);
     border-right: 1px solid #eaeaea;

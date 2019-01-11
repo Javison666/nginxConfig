@@ -53,6 +53,13 @@ const getters={
 	projList:state=>{
 		state.nginxConf.projList
 		return state.nginxConf.projList
+	},
+	itemListFromProjId:state=>id=>{
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==id){
+				return state.nginxConf.projList[i].list
+			}
+		}
 	}
 }
 
@@ -80,6 +87,21 @@ const mutations = {
 			switch:true,
 			list:[]
 		})
+	},
+	setSwitchProj(state,proj){
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==proj.id){
+				state.nginxConf.projList[i].switch=!state.nginxConf.projList[i].switch
+				break
+			}
+		}
+	},
+	setDelProj(state,proj){
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==proj.id){
+				state.nginxConf.projList.splice(i,1)
+			}
+		}
 	}
 }
 
@@ -113,6 +135,17 @@ const actions = {
 		commit,
 	},name){
 		commit('setAddProjList',name)
+	},
+	// 项目开关
+	switchProj({
+		commit,
+	},proj){
+		commit('setSwitchProj',proj)
+	},
+	delProj({
+		commit,
+	},proj){
+		commit('setDelProj',proj)
 	}
 }
 

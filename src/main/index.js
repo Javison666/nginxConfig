@@ -28,7 +28,10 @@ function createWindow () {
     // titleBarStyle: 'hidden',
     // frame: false,
     // transparent: true,
-    autoHideMenuBar:true
+    autoHideMenuBar:true,
+    webPreferences:{
+      webSecurity:false
+    }
   })
 
   mainWindow.loadURL(winURL)

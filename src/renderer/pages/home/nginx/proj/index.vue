@@ -34,7 +34,7 @@
                         <span style="flex: 4;">{{item.name}}</span>
                     </router-link>
                     <span style="flex: 1" @click.stop>
-                        <md-switch v-model="item.switch" class="md-primary" style="cursor:pointer;"></md-switch>
+                        <md-switch :value="item.switch" class="md-primary" style="cursor:pointer;"></md-switch>
                     </span>
                     <span style="flex: 1">
                         <span>
@@ -51,61 +51,72 @@
 export default {
     data() {
         return {
-            itemList: [
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                }
-            ]
+        //     itemList: [
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         },
+        //         {
+        //             name: "云管理",
+        //             switch: true
+        //         }
+        //     ]
         };
+    },
+    beforeRouteEnter: (to, from, next) => {
+        next()
+    },
+    computed:{
+        itemList(){
+            return this.$store.getters['nginx/itemListFromProjId'](this.$route.params.id)
+        }
+    },
+    methods:{
+
     }
 };
 </script>

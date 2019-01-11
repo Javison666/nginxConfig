@@ -13,6 +13,7 @@
 </template>
 <script>
 import { setTimeout } from "timers";
+import { mapGetters } from 'vuex';
 export default {
     data() {
         return {
@@ -21,11 +22,16 @@ export default {
             successFn: null
         };
     },
+    computed:{
+        ...mapGetters({
+            projList: "nginx/projList"
+        })
+    },
     mounted() {
         this.$modal.nginxAddproj = this;
     },
     methods: {
-        async action(fn) {
+        async action() {
             this.value = "";
             this.active = true;
             return new Promise(resolve => {
@@ -41,12 +47,14 @@ export default {
                 });
                 return this.active = true;
             }
+            console.log(this.projList)
             for (let index in this.projList) {
+                console.log(this.projList[index])
                 if (this.projList[index].name == this.value) {
                     this.$toast.error("项目名称已存在", "错误", {
                         position: "topRight"
                     });
-                    return (this.active = true);
+                    return this.active = true;
                 }
             }
             this.$store.dispatch("nginx/addProj", this.value);

@@ -9,14 +9,14 @@
                 :key="index"
             >
                 <md-icon style="flex: 1">input</md-icon>
-                <router-link to="/nginx-proj/123" style="flex: 5">
+                <router-link :to="`/nginx-proj/${item.id}`" style="flex: 5">
                     <span style="flex: 4;">{{item.name}}</span>
                 </router-link>
                 <span style="flex: 1" @click.stop>
-                    <md-switch v-model="item.switch" class="md-primary" style="cursor:pointer;"></md-switch>
+                    <md-switch :value="item.switch" @change="switchProj(item)" class="md-primary" style="cursor:pointer;"></md-switch>
                 </span>
                 <span style="flex: 1">
-                    <span @click="delActive=true">
+                    <span @click="delProj(item)">
                         <md-icon>delete</md-icon>
                     </span>
                 </span>
@@ -30,13 +30,6 @@
         >
             <md-button class="md-primary md-raised" @click="addProj">创建</md-button>
         </md-empty-state>
-        <md-dialog-confirm
-            :md-active.sync="delActive"
-            md-title="删除项目?"
-            md-content="该操作无法撤销，请谨慎操作！"
-            md-confirm-text="确认"
-            md-cancel-text="取消"
-        />
     </div>
 </template>
 <script>
@@ -58,6 +51,15 @@ export default {
     methods: {
         addProj() {
             this.$modal.nginxAddproj.action();
+        },
+        switchProj(item){
+            this.$store.dispatch('nginx/switchProj',item)
+        },
+        async delProj(item){
+            await this.$modal.del.action({
+                title:'删除项目'
+            })
+            this.$store.dispatch('nginx/delProj',item)
         }
     }
 };

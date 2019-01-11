@@ -46,7 +46,6 @@ export default {
 				})
 				this.$store.dispatch('nginx/checkNginxIsInstalled', res)
 			}
-			
 			res = await isNginxRunning()
 			this.$store.dispatch('nginx/checkNginxIsRunning', res)
 		}
@@ -69,7 +68,7 @@ div.box {
 }
 .proj-list {
     position: absolute;
-    top: 52px;
+    top: 60px;
     bottom: 0;
     left: 0;
     right: 0;

@@ -1,12 +1,12 @@
 <template>
-	<div>
+	<div class=box>
 		<div class="row">
 			<input-check-port v-model="port"></input-check-port>
 		</div>
-		<md-button class="md-fab md-mini md-primary"
+		<!-- <md-button class="md-fab md-mini md-primary"
 		    @click="runNginx">
 			运行
-		</md-button>
+		</md-button> -->
 	</div>
 </template>
 
@@ -43,6 +43,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.box{
+	padding:20px 40px;
+}
 .row {
     margin-top: 20px;
     margin-bottom: 20px;

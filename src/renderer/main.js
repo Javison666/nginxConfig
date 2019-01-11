@@ -29,7 +29,11 @@ Vue.appApi = Vue.prototype.$appApi = appApi
 Vue.http = Vue.prototype.$http = axios
 Vue.exec = Vue.prototype.$exec = exec
 Vue.fs = Vue.prototype.$fs = fs
+env.ifMac=env.isMac()
+env.ifWin=env.isWin()
 Vue.env = Vue.prototype.$env = env
+
+
 Vue.time = Vue.prototype.$time = time
 Vue.loc = Vue.prototype.$loc = loc
 Vue.process=Vue.prototype.$process = process
