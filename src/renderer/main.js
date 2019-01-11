@@ -11,14 +11,18 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 // import 'vue-material/dist/theme/default-dark.css' // This line here
 import VueMaterial from 'vue-material'
+import VueIziToast from 'vue-izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 import appApi from '@/api/app'
 import exec from './utils/exec'
 import fs from './utils/fs'
 import env from './utils/env'
 import time from '@/utils/time'
+import loc from '@/utils/localstorage'
 
 Vue.use(VueMaterial)
+Vue.use(VueIziToast);
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.appApi = Vue.prototype.$appApi = appApi
@@ -27,8 +31,12 @@ Vue.exec = Vue.prototype.$exec = exec
 Vue.fs = Vue.prototype.$fs = fs
 Vue.env = Vue.prototype.$env = env
 Vue.time = Vue.prototype.$time = time
+Vue.loc = Vue.prototype.$loc = loc
 Vue.process=Vue.prototype.$process = process
 Vue.config.productionTip = false
+
+// modal全局挂载
+Vue.$modal=Vue.prototype.$modal={}
 
 
 

@@ -22,6 +22,14 @@
                 </span>
             </md-list-item>
         </md-list>
+        <md-empty-state
+            v-show="projList.length==0"
+            md-icon="devices_other"
+            md-label="创建你的第一个项目"
+            md-description="Create your first project"
+        >
+            <md-button class="md-primary md-raised" @click="addProj">创建</md-button>
+        </md-empty-state>
         <md-dialog-confirm
             :md-active.sync="delActive"
             md-title="删除项目?"
@@ -32,57 +40,25 @@
     </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
     data() {
         return {
-            delActive: false,
-            projList: [
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                },
-                {
-                    name: "云管理",
-                    switch: true
-                }
-            ]
+            delActive: false
         };
+    },
+    computed: {
+        ...mapGetters({
+            projList: "nginx/projList"
+        })
+    },
+    mounted() {
+        // this.$store.dispatch('nginx/updateProjList',[])
+    },
+    methods: {
+        addProj() {
+            this.$modal.nginxAddproj.action();
+        }
     }
 };
 </script>

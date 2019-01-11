@@ -2,11 +2,13 @@
 	<div class=box>
 		<header-top class=header-top></header-top>
 		<proj-list class="proj-list md-scrollbar"></proj-list>
+		<modal-nginx-add-proj></modal-nginx-add-proj>
 	</div>
 </template>
 
 <script>
 import InputCheckPort from '_c/InputCheckPort'
+import ModalNginxAddProj from '_c/ModalNginxAddProj'
 
 import HeaderTop from './header'
 import ProjList from './projList'
@@ -19,7 +21,8 @@ export default {
 	name: 'nginx',
 	components: {
 		HeaderTop,
-		ProjList
+		ProjList,
+		ModalNginxAddProj
 	},
 	data() {
 		return {
