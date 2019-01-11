@@ -1,10 +1,20 @@
 class Env{
     constructor(){}
     isWin(){
-        return /windows|win32/i.test(navigator.userAgent)
+        if(navigator){
+            return /windows|win32/i.test(navigator.userAgent)
+        }else{
+            return false
+        }
+        
     }
     isMac(){
-        return /macintosh|mac os x/i.test(navigator.userAgent)
+        if(navigator){
+            return /macintosh|mac os x/i.test(navigator.userAgent)
+        }else{
+            return false
+        }
+        
     }
 }
 export default new Env()

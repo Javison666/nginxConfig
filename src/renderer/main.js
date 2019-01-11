@@ -16,6 +16,7 @@ import appApi from '@/api/app'
 import exec from './utils/exec'
 import fs from './utils/fs'
 import env from './utils/env'
+import time from '@/utils/time'
 
 Vue.use(VueMaterial)
 
@@ -25,6 +26,7 @@ Vue.http = Vue.prototype.$http = axios
 Vue.exec = Vue.prototype.$exec = exec
 Vue.fs = Vue.prototype.$fs = fs
 Vue.env = Vue.prototype.$env = env
+Vue.time = Vue.prototype.$time = time
 Vue.process=Vue.prototype.$process = process
 Vue.config.productionTip = false
 

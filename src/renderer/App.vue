@@ -57,7 +57,12 @@ export default {
 		}
 	},
 	mounted() {
-		this.$store.dispatch('local/actionAppInit')
+		if(this.$env.isWin()){
+			this.$fs.mkdir({
+				path: this.$appApi.localPath
+			})
+		}
+		// this.$store.dispatch('nginx/actionAppInit')
 	},
 	methods: {
 	}

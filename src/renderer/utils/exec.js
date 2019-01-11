@@ -79,6 +79,9 @@ class Exec {
             this.run({
                 cmd,
                 path,
+                out:(data)=>{
+                    resolve(data)
+                },
                 close: (data) => {
                     resolve(data)
                 },

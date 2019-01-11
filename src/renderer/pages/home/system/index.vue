@@ -34,8 +34,6 @@ export default {
         }
     },
     mounted() {
-        console.log(process)
-        console.log(navigator.userAgent)
     }
 }
 </script>

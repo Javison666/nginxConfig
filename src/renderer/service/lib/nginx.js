@@ -12,7 +12,7 @@ const easyNginxPath = appApi.localPath + '\\nginx\\easy-nginx'
 // /nginx/easy-nginx/
 
 export const installNginx = async () => {
-    if(env.isWin()){
+    if (env.isWin()) {
         await _fs.mkdir({
             path: appApi.localPath + '\\nginx'
         })
@@ -32,72 +32,83 @@ export const installNginx = async () => {
         //     ws.end();
         // })
     }
-    if(env.isMac()){
+    if (env.isMac()) {
         exec.once({
             cmd: 'brew install nginx',
         })
     }
-    
+
 }
 
 // 监测nginx是否运行
 export const isNginxRunning = async () => {
-    if(env.isWin()){
-        let res = await exec.info({
-            cmd: 'tasklist /nh|find /i "easynginx.exe"',
-        })
-        if (res.state) {
-            return true
-        } else {
-            return false
-        }
-    }
-    if(env.isMac()){
-        let res = await exec.info({
-            cmd: 'ps aux | grep nginx:',
-        })
-        if(res.state){
-            res.data.split('\n')
-            if(res.data.length>2){
-                return true
+    let res
+    return new Promise(async (resolve) => {
+        if (env.isWin()) {
+             res= await exec.info({
+                cmd: 'tasklist /nh|find /i "easynginx.exe"',
+            })
+            if (res.state) {
+                resolve(true)
+            } else {
+                resolve(false)
             }
         }
-        return false
-    }
+        if (env.isMac()) {
+            res = await exec.info({
+                cmd: 'ps aux | grep nginx:',
+            })
+            if (res.state) {
+                res.data.split('\n')
+                if (res.data.length > 2) {
+                    resolve(true)
+                }
+            }
+            resolve(false)
+        }
+    })
 }
 
 // 关闭nginx
-export const stopNginx=async ()=>{
-    if(env.isMac()){
-        exec.once({
-            cmd: 'nginx -s stop',
-        })
-    } 
+export const stopNginx = async () => {
+    return new Promise(async (resolve)=>{
+        if(env.isWin()){
+            await exec.once({
+                cmd:'taskkill /f /t /im easynginx.exe'
+            })
+        }
+        if (env.isMac()) {
+            await exec.once({
+                cmd: 'nginx -s stop',
+            })
+        }
+        resolve(true)
+    })
+    
 }
 
 // 运行-重载nginx
 export const runNginx = async () => {
-    if(env.isWin()){
-        let res = await isNginxRunning()
-        if (!res) {
-            // 若未运行，则运行
+    let res
+    return new Promise(async (resolve)=>{
+        if (env.isWin()) {
+            res = await isNginxRunning()
+            if(res){
+                await stopNginx()
+            }
             exec.once({
                 cmd: easyNginxName,
-                path: easyNginxPath
+                path: easyNginxPath,
             })
-        }else{
-            // 若已运行，则重新加载配置
-            exec.once({
-                cmd: easyNginxName+' -s reload',
-                path: easyNginxPath
+            resolve(true)
+        }
+        if (env.isMac()) {
+            await stopNginx()
+            await exec.once({
+                cmd: 'nginx',
             })
         }
-    }
-    if(env.isMac()){
-        await stopNginx()
-        exec.once({
-            cmd: 'nginx',
-        })
-    }
+        resolve(true)
+    })
+    
 }
-
