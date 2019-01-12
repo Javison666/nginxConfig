@@ -59,8 +59,8 @@ export const isNginxRunning = async () => {
                 cmd: 'ps aux | grep nginx:',
             })
             if (res.state) {
-                res.data.split('\n')
-                if (res.data.length > 2) {
+                res.data=res.data.split('\n')
+                if (res.data.length > 3) {
                     resolve(true)
                 }
             }

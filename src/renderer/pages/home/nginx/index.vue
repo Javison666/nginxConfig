@@ -3,12 +3,14 @@
 		<header-top class=header-top></header-top>
 		<proj-list class="proj-list md-scrollbar"></proj-list>
 		<modal-nginx-add-proj></modal-nginx-add-proj>
+		
 	</div>
 </template>
 
 <script>
 import InputCheckPort from '_c/InputCheckPort'
 import ModalNginxAddProj from '_c/ModalNginxAddProj'
+
 
 import HeaderTop from './header'
 import ProjList from './projList'
@@ -22,7 +24,8 @@ export default {
 	components: {
 		HeaderTop,
 		ProjList,
-		ModalNginxAddProj
+		ModalNginxAddProj,
+		
 	},
 	data() {
 		return {
@@ -39,13 +42,26 @@ export default {
 			this.$electron.shell.openExternal(link)
 		},
 		async checkNginx() {
+			// 确定nginx是否被安装
 			let res
-			if (this.$env.isWin()) {
+			if (this.$env.ifWin) {
 				res = await this.$fs.isExist({
 					path: this.$appApi.localPath + '/nginx/easy-nginx/easynginx.exe'
 				})
 				this.$store.dispatch('nginx/checkNginxIsInstalled', res)
 			}
+			if (this.$env.ifMac) {
+				res = await this.$exec.info({
+					cmd:'nginx -v'
+				})
+				if(res.data.indexOf('version')>-1){
+					res=true
+				}else{
+					res=false
+				}
+				this.$store.dispatch('nginx/checkNginxIsInstalled', res)
+			}
+			// 确定nginx是否正在运行
 			res = await isNginxRunning()
 			this.$store.dispatch('nginx/checkNginxIsRunning', res)
 		}

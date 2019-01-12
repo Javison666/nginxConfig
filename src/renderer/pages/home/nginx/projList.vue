@@ -13,7 +13,7 @@
                     <span style="flex: 4;">{{item.name}}</span>
                 </router-link>
                 <span style="flex: 1" @click.stop>
-                    <md-switch :value="item.switch" @change="switchProj(item)" class="md-primary" style="cursor:pointer;"></md-switch>
+                    <md-switch :value="item.runSwitch" @change="switchProj(item)" class="md-primary" style="cursor:pointer;"></md-switch>
                 </span>
                 <span style="flex: 1">
                     <span @click="delProj(item)">

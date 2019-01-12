@@ -14,7 +14,10 @@
                     <span>云管理</span>
                 </h3>
                 <span style="flex: 1;">
-                    <md-button class="md-fab md-mini" style="float:right;">
+                    <md-button 
+                        @click.prevent="addItem"
+                        class="md-fab md-mini" 
+                        style="float:right;">
                         <md-icon>add</md-icon>
                     </md-button>
                 </span>
@@ -44,11 +47,16 @@
                 </md-list-item>
             </md-list>
         </div>
+        <modal-nginx-add-item></modal-nginx-add-item>
     </div>
 </template>
 
 <script>
+import ModalNginxAddItem from '_c/ModalNginxAddItem'
 export default {
+    components:{
+ModalNginxAddItem
+    },
     data() {
         return {
         //     itemList: [
@@ -116,7 +124,9 @@ export default {
         }
     },
     methods:{
-
+        async addItem(){
+            await this.$modal.nginxAddItem.action()
+        }
     }
 };
 </script>

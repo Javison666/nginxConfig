@@ -11,7 +11,7 @@ const state = {
 			// 	// 项目名称
 			// 	name:'云管理',
 			// 	// 项目开关
-			// 	switch:false,
+			// 	runSwitch:false,
 			// 	// 项目的配置列表
 			// 	list:[
 			// 		{
@@ -24,20 +24,16 @@ const state = {
 			// 			// 单项服务名称
 			// 			serverName:'',
 			// 			// 是否开启
-			// 			switch:false,
+			// 			runSwitch:false,
 			// 			// 拦截列表
 			// 			locationList:[
 			// 				{
 			// 					// 拦截api地址
 			// 					apiPath:'',
-			// 					// 指向ip的地址
-			// 					apiIp:'',
-			// 					// 指向的端口
-			// 					apiPort:'',
-			// 					// html代理的ip
-			// 					proxyIp:'',
-			// 					// html代理的端口
-			// 					proxyPort:'',
+			// 					// 拦截指向服务地址
+			// 					apiTo:'',
+			// 					// html代理地址
+			// 					proxyTo:'',
 			// 					// 或者静态的地址
 			// 					htmlPath:''
 			// 				}
@@ -84,14 +80,14 @@ const mutations = {
 		state.nginxConf.projList.unshift({
 			id,
 			name:name,
-			switch:true,
+			runSwitch:true,
 			list:[]
 		})
 	},
 	setSwitchProj(state,proj){
 		for(let i in state.nginxConf.projList){
 			if(state.nginxConf.projList[i].id==proj.id){
-				state.nginxConf.projList[i].switch=!state.nginxConf.projList[i].switch
+				state.nginxConf.projList[i].runSwitch=!state.nginxConf.projList[i].runSwitch
 				break
 			}
 		}

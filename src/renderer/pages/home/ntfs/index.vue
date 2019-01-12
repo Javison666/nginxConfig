@@ -123,7 +123,9 @@ export default {
             this.$exec.run({
                 cmd: `ln -s /Volumes ~/Desktop/Volumes`,
                 close: code => {
-                    this.$Message.success("拔掉硬盘重新插入生效");
+                    this.$toast.success("拔掉硬盘重新插入生效", "成功", {
+                        position: "topRight"
+                    });
                 }
             });
         }

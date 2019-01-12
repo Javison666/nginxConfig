@@ -23,6 +23,7 @@
                 @click="installNginx">
                 <md-icon class="md-primary">file_download</md-icon>
                 <span>请安装nginx</span>
+                {{$store.state.nginx.isNginxInstalled}}
             </md-button>
             <span @click="$modal.nginxAddproj.action()" style="cursor:pointer;">
                 <md-icon class="md-primary">playlist_add</md-icon>
