@@ -30,8 +30,8 @@ const state = {
 			// 				{
 			// 					// 拦截api地址
 			// 					apiPath:'',
-			// 					// 拦截指向服务地址
-			// 					apiTo:'',
+			// 					// 拦截指向类型，'api'->proxyTo,'html'->htmlPath
+			// 					apiType:'',
 			// 					// html代理地址
 			// 					proxyTo:'',
 			// 					// 或者静态的地址
@@ -53,7 +53,7 @@ const getters={
 	itemListFromProjId:state=>id=>{
 		for(let i in state.nginxConf.projList){
 			if(state.nginxConf.projList[i].id==id){
-				return state.nginxConf.projList[i].list
+				return state.nginxConf.projList[i]
 			}
 		}
 	}
@@ -96,6 +96,55 @@ const mutations = {
 		for(let i in state.nginxConf.projList){
 			if(state.nginxConf.projList[i].id==proj.id){
 				state.nginxConf.projList.splice(i,1)
+				break
+			}
+		}
+	},
+	setAddItem(state,obj){
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==obj.projId){
+				item.list.push(obj.item)
+				break
+			}
+		}
+	},
+	setDelItem(state,obj){
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==obj.projId){
+				for(let j in state.nginxConf.projList[i].list){
+					if(state.nginxConf.projList[i].list[j].id==obj.itemId){
+						state.nginxConf.projList[i].list.splice(j,1)
+						break
+					}
+				}
+				break
+			}
+		}
+	},
+	setAddApi(state,obj){
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==obj.projId){
+				for(let j in state.nginxConf.projList[i].list){
+					if(state.nginxConf.projList[i].list[j].id==obj.itemId){
+						state.nginxConf.projList[i].list[j].locationList===undefined?state.nginxConf.projList[i].list[j].locationList=[]:''
+						state.nginxConf.projList[i].list[j].locationList.push(obj.location)
+						break
+					}
+				}
+				break
+			}
+		}
+	},
+	setDelApi(state,obj){
+		for(let i in state.nginxConf.projList){
+			if(state.nginxConf.projList[i].id==obj.projId){
+				for(let j in state.nginxConf.projList[i].list){
+					if(state.nginxConf.projList[i].list[j].id==obj.itemId){
+						state.nginxConf.projList[i].list[j].locationList.splice(obj.delIndex,1)
+						break
+					}
+				}
+				break
 			}
 		}
 	}
@@ -142,6 +191,26 @@ const actions = {
 		commit,
 	},proj){
 		commit('setDelProj',proj)
+	},
+	addItem({
+		commit
+	},obj){
+		commit('setAddItem',obj)
+	},
+	delItem({
+		commit
+	},obj){
+		commit('setDelItem',obj)
+	},
+	addApi({
+		commit
+	},obj){
+		commit('setAddApi',obj)
+	},
+	delApi({
+		commit
+	},obj){
+		commit('setDelApi',obj)
 	}
 }
 

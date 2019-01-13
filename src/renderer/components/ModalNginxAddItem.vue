@@ -1,7 +1,6 @@
 <template>
     <md-dialog
         :md-active="active"
-        v-model="value"
         md-confirm-text="Done"
         @md-confirm="onConfirm"
         @md-cancel="active=false"
@@ -17,7 +16,7 @@
             <div class="left">
                 <md-field class="row">
                     <label>nginx服务端口：</label>
-                    <md-input v-model="name"></md-input>
+                    <md-input v-model="serverPort"></md-input>
                     <span class="md-helper-text"></span>
                 </md-field>
                 <!-- <md-field class="row">
@@ -67,11 +66,10 @@ import { setTimeout } from "timers";
 export default {
     data() {
         return {
-            active: true,
-            value: "",
+            active: false,
             successFn: null,
+            projId:'',
             name: "",
-            runSwitch: true,
             serverPort: "",
             serverName: ""
         };
@@ -80,7 +78,10 @@ export default {
         this.$modal.nginxAddItem = this;
     },
     methods: {
-        async action() {
+        async action({
+            projId
+        }) {
+            this.projId=projId
             this.value = "";
             this.active = true;
             return new Promise(resolve => {
@@ -90,12 +91,28 @@ export default {
             });
         },
         onConfirm() {
-            if (this.value.trim() === "") {
+            if (this.name.trim() === "") {
                 this.$toast.error("请输入项目名称", "错误", {
                     position: "topRight"
                 });
                 return (this.active = true);
             }
+            if (this.serverPort.trim() === "") {
+                this.$toast.error("请输入nginx服务端口", "错误", {
+                    position: "topRight"
+                });
+                return (this.active = true);
+            }
+            this.$store.dispatch('nginx/addItem',{
+                projId:this.projId,
+                item:{
+                    name: this.name,
+                    serverPort: this.serverPort,
+                    serverName: this.serverName,
+                    locationList:[],
+                    runSwitch:true
+                }
+            })
             this.active = false;
             this.successFn();
         }

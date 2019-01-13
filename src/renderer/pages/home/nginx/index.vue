@@ -3,7 +3,6 @@
 		<header-top class=header-top></header-top>
 		<proj-list class="proj-list md-scrollbar"></proj-list>
 		<modal-nginx-add-proj></modal-nginx-add-proj>
-		
 	</div>
 </template>
 
