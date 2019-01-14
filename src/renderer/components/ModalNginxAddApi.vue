@@ -28,7 +28,7 @@
             <md-field class="row" v-show="apiType=='api'">
                 <label>服务地址：</label>
                 <md-input v-model="proxyTo"></md-input>
-                <span class="md-helper-text">例：127.0.0.1:8000</span>
+                <span class="md-helper-text">例：http://127.0.0.1:8000</span>
             </md-field>
             <md-field class="row" v-show="apiType=='html'">
                 <label>静态目录地址：</label>

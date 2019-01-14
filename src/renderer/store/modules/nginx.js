@@ -1,4 +1,7 @@
 import _fs from '../../utils/fs'
+import {
+	getNginxConf
+} from '../../service/lib/nginxConf'
 
 const state = {
 	isNginxInstalled: false,
@@ -103,7 +106,7 @@ const mutations = {
 	setAddItem(state,obj){
 		for(let i in state.nginxConf.projList){
 			if(state.nginxConf.projList[i].id==obj.projId){
-				item.list.push(obj.item)
+				state.nginxConf.projList[i].list.push(obj.item)
 				break
 			}
 		}
@@ -134,6 +137,11 @@ const mutations = {
 				break
 			}
 		}
+		_fs.write({
+			text:getNginxConf(state.nginxConf.projList),
+        	path:'/usr/local/etc/nginx/easynginx.conf'	
+		})
+		// nginx -c /usr/local/etc/nginx/easynginx.conf
 	},
 	setDelApi(state,obj){
 		for(let i in state.nginxConf.projList){
