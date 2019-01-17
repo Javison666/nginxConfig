@@ -9,6 +9,7 @@
         md-confirm-text="Done"
         @md-confirm="onConfirm"
         @md-cancel="active=false"
+        style="width:554px"
     />
 </template>
 <script>
