@@ -106,6 +106,7 @@ const mutations = {
 	setAddItem(state,obj){
 		for(let i in state.nginxConf.projList){
 			if(state.nginxConf.projList[i].id==obj.projId){
+				obj.item.id=new Date().getTime()
 				state.nginxConf.projList[i].list.push(obj.item)
 				break
 			}
