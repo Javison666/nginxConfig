@@ -4,20 +4,7 @@
             <h6 class="md-title"
                 style="flex: 5;font-size:18px;">
                 <span>项目列表 - PROJECT LIST</span>
-                <span 
-                    @click="runNginx"
-                    v-show="$store.state.nginx.isNginxInstalled && !$store.state.nginx.isNginxRunning">
-                    <!-- 运行nginx -->
-                    <md-icon class="md-primary cr"
-                        >play_circle_filled</md-icon>
-                </span>
-                <span 
-                    @click="stopNginx"
-                    v-show="$store.state.nginx.isNginxInstalled && $store.state.nginx.isNginxRunning">
-                    <md-icon class="md-primary"
-                        >power_settings_new</md-icon>
-                </span>
-
+                <switch-nginx></switch-nginx>
             </h6>
             <md-button v-show="!$store.state.nginx.isNginxInstalled"
                 @click="installNginx">
@@ -33,28 +20,18 @@
 </template>
 <script>
 import { 
-    runNginx, 
     installNginx, 
-    isNginxRunning,
-    stopNginx 
 } from "_slib/nginx";
+import SwitchNginx from '_c/SwitchNginx'
 import { setTimeout } from 'timers';
 
 export default {
     name: "headerTop",
+    components:{
+        SwitchNginx
+    },
     methods: {
-        installNginx,
-        async stopNginx(){
-            await stopNginx()
-            this.$store.dispatch('nginx/checkNginxIsRunning',await isNginxRunning())
-        },
-        async runNginx() {
-            let res
-            res=await runNginx()
-            // 等待0.4s
-            await this.$time.waitingSec(0.4)
-            this.$store.dispatch('nginx/checkNginxIsRunning',await isNginxRunning())
-        }
+        installNginx
     }
 };
 </script>

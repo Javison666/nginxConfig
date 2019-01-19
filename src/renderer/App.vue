@@ -6,8 +6,10 @@
 				<md-app-drawer md-permanent="full">
 					<md-toolbar class="md-transparent"
 					    md-elevation="0">
-						<img width="80%" style="display:inline-block;margin:auto;" :src="`file:///${staticPath}/img/icon/icon.ico`" />
-						<p style="text-align:center;width:100%;padding:0!important;margin:0;">EASY-TOOL</p>
+						<img width="80%"
+						    style="display:inline-block;margin:auto;"
+						    :src="`file:///${staticPath}/img/icon/icon.ico`" />
+						<!-- <p style="text-align:center;width:100%;padding:0!important;margin:0;">EASY-TOOL</p> -->
 					</md-toolbar>
 					<md-list class="menu-list">
 						<router-link to="/nginx"
@@ -29,7 +31,7 @@
 							</md-list-item>
 						</router-link>
 						<router-link to="/ntfs"
-							v-show="$env.ifMac"
+						    v-show="$env.ifMac"
 						    class="menu-list-item"
 						    active-class="menu-list-item-active"
 						    tag="div">
@@ -50,7 +52,9 @@
 					</md-list>
 				</md-app-drawer>
 				<md-app-content>
-					<router-view></router-view>
+					<transition name="slide-right">
+						<router-view></router-view>
+					</transition>
 				</md-app-content>
 			</md-app>
 		</div>
@@ -63,17 +67,17 @@
 import { setTimeout } from 'timers';
 import ModalDel from '_c/ModalDel'
 export default {
-	components:{
+	components: {
 		ModalDel
 	},
 	data() {
 		return {
-			staticPath:__static,
+			staticPath: __static,
 			icons: ['dashboard', 'home', 'event']
 		}
 	},
 	mounted() {
-		if(this.$env.isWin()){
+		if (this.$env.isWin()) {
 			this.$fs.mkdir({
 				path: this.$appApi.localPath
 			})
@@ -101,13 +105,13 @@ export default {
     border: 1px solid rgba(#000, 0.12);
 }
 .md-drawer {
-	padding-top: 10px!important;
+    padding-top: 10px !important;
     width: 120px !important;
     max-width: calc(100vw - 125px);
     border-right: 1px solid #eaeaea;
 }
 .menu-list {
-	padding-top: 30px!important;
+    padding-top: 30px !important;
     .menu-list-item {
         transition: all 0.2s;
         &:hover {
@@ -130,10 +134,38 @@ export default {
 }
 </style>
 <style lang="less">
-.md-app-content{
-	padding:0!important;
+.md-app-content {
+	padding: 0 !important;
+	overflow: hidden;
+	border-left:0 !important;
 }
-.md-list-item-content>.md-icon:first-child{
-	margin-right:10px!important;
+.md-list-item-content > .md-icon:first-child {
+    margin-right: 10px !important;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+	
+  will-change: transform;
+  transition: all 200ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(0, 10%, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(0, -10%, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(0, -10%, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(0, 10%, 0);
 }
 </style>

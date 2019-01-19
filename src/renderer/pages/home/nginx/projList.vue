@@ -13,7 +13,7 @@
                     <span style="flex: 4;">{{item.name}}</span>
                 </router-link>
                 <span style="flex: 1" @click.stop>
-                    <md-switch :value="item.runSwitch" @change="switchProj(item)" class="md-primary" style="cursor:pointer;"></md-switch>
+                    <md-switch :value="!item.runSwitch" @change="switchProj(item)" class="md-primary" style="cursor:pointer;"></md-switch>
                 </span>
                 <span style="flex: 1">
                     <span @click="delProj(item)">
@@ -34,6 +34,9 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import {
+    updateNginxConf
+} from '_slib/nginx'
 export default {
     data() {
         return {
@@ -41,9 +44,14 @@ export default {
         };
     },
     computed: {
-        ...mapGetters({
-            projList: "nginx/projList"
-        })
+        // ...mapGetters({
+        //     projList: "nginx/projList"
+        // })
+        projList(){
+            updateNginxConf()
+            console.log(this.$store.getters["nginx/projList"])
+            return this.$store.getters["nginx/projList"]
+        }
     },
     mounted() {
         // this.$store.dispatch('nginx/updateProjList',[])
@@ -54,6 +62,7 @@ export default {
         },
         switchProj(item){
             this.$store.dispatch('nginx/switchProj',item)
+            updateNginxConf()
         },
         async delProj(item){
             await this.$modal.del.action({

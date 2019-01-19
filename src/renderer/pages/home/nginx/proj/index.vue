@@ -2,20 +2,25 @@
     <div>
         <div class="header-top">
             <md-toolbar :md-fixed="true">
-                <router-link to="/nginx">
-                    <md-icon>navigate_before</md-icon>
-                </router-link>
-                <router-link to="/nginx"
-                    style="flex: 1">
-                    <h3 class="md-title">
-                        <span>项目列表</span>
-                    </h3>
-                </router-link>
+                <div style="position:absolute;left:0;top:0;width:150px;line-height:62px;">
+                    <router-link to="/nginx"
+                        style="display:inline-block;">
+                        <md-icon>navigate_before</md-icon>
+                    </router-link>
+                    <router-link to="/nginx"
+                        style="display:inline-block;vertical-align:middle;">
+                        <h3 class="md-title">
+                            <span>nginx</span>
+                        </h3>
+                    </router-link>
+                    <switch-nginx style="margin-left:10px;position:relative;top:1px;"></switch-nginx>
+                </div>
+
                 <h3 class="md-title"
-                    style="flex: 1;text-align:center;">
+                    style="flex: 8;text-align:center;">
                     <span>{{proj.name}}</span>
                 </h3>
-                <span style="flex: 1;">
+                <span style="position:absolute;right:16px;top;10px;">
                     <md-button @click.prevent="addItem"
                         class="md-fab md-mini"
                         style="float:right;">
@@ -25,8 +30,7 @@
             </md-toolbar>
         </div>
         <div class="item-list">
-            <md-list>
-                <div class="fix-top"></div>
+            <md-list style="padding-top:16px;">
                 <md-list-item md-expand
                     v-for="(item,index) in proj.list"
                     class="list-item"
@@ -34,21 +38,26 @@
                     :key="index">
                     <div style="display:flex;"
                         class="item-row">
-                        <span style="flex: 1"
+                        <span style="flex: 1;text-align:right;"
                             @click.stop>
-                            <md-switch :value="item.switch"
+                            <!-- <md-switch :value="!item.runSwitch"
+                                @change="switchItem(item)"
                                 class="md-primary"
-                                style="cursor:pointer;"></md-switch>
+                                style="cursor:pointer;"></md-switch> -->
                         </span>
-                        <span style="flex: 3;">{{item.name}}</span>
-                        <span style="flex: 2;">端口：{{item.serverPort}}</span>
-                        <span style="flex: 1">
+                        <span style="flex: 4;">{{item.name}}</span>
+                        <span style="flex: 2;">PORT ：{{item.serverPort}}</span>
+                        <span style="flex: 1;text-align:center;"
+                            @click.stop="$electron.shell.openExternal('http://'+$env.getIP()+':'+item.serverPort)">
+                            <md-icon style="color:#02dc50">launch</md-icon>
+                        </span>
+                        <!-- <span style="flex: 1;text-align:center;">
                             <md-icon>file_copy</md-icon>
-                        </span>
-                        <div style="flex: 1"
+                        </span> -->
+                        <div style="flex: 1;text-align:center;"
                             @click.stop>
                             <span @click.stop="delItem">
-                                <md-icon>remove_circle</md-icon>
+                                <md-icon style="color:#ff3333">remove_circle</md-icon>
                             </span>
                         </div>
                     </div>
@@ -57,9 +66,9 @@
                         <md-list-item class="md-inset"
                             v-for="(loc,index2) in item.locationList"
                             :key="index2">
-                            <span>拦截地址头：{{loc.apiPath}}</span>
-                            <span v-show="loc.apiType=='api'">拦截转向：{{loc.proxyTo}}</span>
-                            <span v-show="loc.apiType=='html'">拦截转向：{{loc.htmlPath}}</span>
+                            <span>Location：{{loc.apiPath}}</span>
+                            <span v-show="loc.apiType=='api'">转向：{{loc.proxyTo}}</span>
+                            <span v-show="loc.apiType=='html'">转向：{{loc.htmlPath}}</span>
                             <span @click.prevent="delApi(item,index2)">
                                 <md-icon>clear</md-icon>
                             </span>
@@ -75,6 +84,14 @@
                 </md-list-item>
             </md-list>
         </div>
+        <md-empty-state v-show="proj.list.length==0"
+            style="padding-top:120px;"
+            md-icon="devices_other"
+            md-label="创建项目的第一个代理"
+            md-description="Create your first project">
+            <md-button class="md-primary md-raised"
+                @click="addItem">创建</md-button>
+        </md-empty-state>
         <modal-nginx-add-item></modal-nginx-add-item>
         <modal-nginx-add-api></modal-nginx-add-api>
     </div>
@@ -83,6 +100,7 @@
 <script>
 import ModalNginxAddItem from "_c/ModalNginxAddItem";
 import ModalNginxAddApi from "_c/ModalNginxAddApi";
+import SwitchNginx from '_c/SwitchNginx'
 import {
     updateNginxConf
 } from '_slib/nginx'
@@ -90,7 +108,8 @@ import { setTimeout } from 'timers';
 export default {
     components: {
         ModalNginxAddItem,
-        ModalNginxAddApi
+        ModalNginxAddApi,
+        SwitchNginx
     },
     data() {
         return {};
@@ -126,7 +145,6 @@ export default {
                 itemId: item.id
             });
             this.$forceUpdate();
-
         },
         async addApi(item) {
             await this.$modal.nginxAddApi.action({
@@ -145,6 +163,10 @@ export default {
                 delIndex: index
             });
             this.$forceUpdate();
+        },
+        switchItem(item){
+            let i=JSON.parse(JSON.stringify(item))
+            i.runSwitch=!i.runSwitch
         }
     }
 };
@@ -153,7 +175,7 @@ export default {
 .header-top {
     position: fixed;
     top: 0px;
-    left: 1px;
+    left: 0px;
     z-index: 10;
     width: calc(100%);
     // overflow: hidden;
@@ -169,5 +191,10 @@ export default {
 .item-row {
     width: calc(100% - 48px);
     line-height: 52px;
+}
+.md-inset {
+    span {
+        text-align: left;
+    }
 }
 </style>

@@ -1,4 +1,4 @@
-const nginxConf=`
+const nginxConf = `
 worker_processes  1;
 events {
     worker_connections  1024;
@@ -11,7 +11,7 @@ http {
     $serverConf
 }
 `
-const serverConf=`
+const serverConf = `
     server {
         listen  $port;
         $serverName
@@ -19,7 +19,7 @@ const serverConf=`
         $locationConf
     }
 `
-const locationApiConf=`
+const locationApiConf = `
         location /$api {
             rewrite ^($api/?.*)$ /$1 break;
             proxy_pass $proxyTo;           
@@ -29,40 +29,42 @@ const locationApiConf=`
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;	
         }
 `
-const locationHtmlConf=`
+const locationHtmlConf = `
         location /$api {
             root $htmlPath;
             index index.html index.htm;
             try_files $uri $uri/ /index.html; 
         }
 `
-export const getNginxConf=(conf)=>{
-    console.log(conf)
-    let txt=`\n`
-    conf.forEach(proj=>{
-        proj.list.forEach(item=>{
-            txt+=serverConf
-                .replace('$port',item.serverPort)
-                .replace('$serverName',item.serverName?`server_name ${item.serverName}`:'')
-                .replace('$locationConf',()=>{
-                    let locTxt=`\n`
-                    item.locationList.forEach(loc=>{
-                        let apiPath=loc.apiPath.slice(1)
-                        if(loc.apiType=='api'){
-                            locTxt+=locationApiConf
-                                .replace(/\$api/g,apiPath)
-                                .replace('$proxyTo',loc.proxyTo)
-                        }else{
-                            locTxt+=locationHtmlConf
-                                .replace(/\$api/g,apiPath)
-                                .replace('$htmlPath',loc.htmlPath)
-                        }
-                    })
-                    return locTxt
-                })
+export const getNginxConf = (conf) => {
+    let txt = `\n`
+    conf.forEach(proj => {
+        if (proj.runSwitch) {
+            proj.list.forEach(item => {
+                if (item.runSwitch) {
+                    txt += serverConf
+                        .replace('$port', item.serverPort)
+                        .replace('$serverName', item.serverName ? `server_name ${item.serverName}` : '')
+                        .replace('$locationConf', () => {
+                            let locTxt = `\n`
+                            item.locationList.forEach(loc => {
+                                let apiPath = loc.apiPath.slice(1)
+                                if (loc.apiType == 'api') {
+                                    locTxt += locationApiConf
+                                        .replace(/\$api/g, apiPath)
+                                        .replace('$proxyTo', loc.proxyTo)
+                                } else {
+                                    locTxt += locationHtmlConf
+                                        .replace(/\$api/g, apiPath)
+                                        .replace('$htmlPath', loc.htmlPath)
+                                }
+                            })
+                            return locTxt
+                        })
+                }
+            })
+        }
 
-        })
     })
-    return nginxConf.replace('$serverConf',txt)
+    return nginxConf.replace('$serverConf', txt)
 }
-
