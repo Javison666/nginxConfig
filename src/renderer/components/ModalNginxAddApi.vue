@@ -4,7 +4,7 @@
         md-confirm-text="Done"
         @md-confirm="onConfirm"
         @md-cancel="active=false"
-        style="width:554px"
+        style="width:400px"
         class="box"
     >
         <h6 class="md-title" style="flex: 5;font-size:18px;margin:0;padding-bottom:10px;">新建拦截</h6>
@@ -96,7 +96,7 @@ export default {
                     apiPath:this.apiPath,
                     apiType:this.apiType,
                     proxyTo:this.proxyTo,
-                    html:this.htmlPath
+                    htmlPath:this.htmlPath
                 }
             });
             this.active = false;

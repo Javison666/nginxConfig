@@ -137,11 +137,6 @@ const mutations = {
 				break
 			}
 		}
-		_fs.write({
-			text:getNginxConf(state.nginxConf.projList),
-        	path:'/usr/local/etc/nginx/easynginx.conf'	
-		})
-		// nginx -c /usr/local/etc/nginx/easynginx.conf
 	},
 	setDelApi(state,obj){
 		for(let i in state.nginxConf.projList){

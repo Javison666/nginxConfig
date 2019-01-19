@@ -4,7 +4,7 @@
         md-confirm-text="Done"
         @md-confirm="onConfirm"
         @md-cancel="active=false"
-        style="width:554px"
+        style="width:400px"
         class="box"
     >
         <h6 class="md-title" style="flex: 5;font-size:18px;margin:0;padding-bottom:10px;">新建条目</h6>

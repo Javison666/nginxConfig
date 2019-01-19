@@ -4,6 +4,9 @@ import unzip from 'unzip'
 import appApi from '@/api/app'
 import exec from '@/utils/exec'
 import env from '@/utils/env'
+import {
+    getNginxConf
+} from './nginxConf'
 
 const easyNginxName = 'easynginx.exe'
 const easyNginxZipName = 'easy-nginx.zip'
@@ -45,7 +48,7 @@ export const isNginxRunning = async () => {
     let res
     return new Promise(async (resolve) => {
         if (env.isWin()) {
-             res= await exec.info({
+            res = await exec.info({
                 cmd: 'tasklist /nh|find /i "easynginx.exe"',
             })
             if (res.state) {
@@ -59,7 +62,7 @@ export const isNginxRunning = async () => {
                 cmd: 'ps aux | grep nginx:',
             })
             if (res.state) {
-                res.data=res.data.split('\n')
+                res.data = res.data.split('\n')
                 if (res.data.length > 3) {
                     resolve(true)
                 }
@@ -71,10 +74,10 @@ export const isNginxRunning = async () => {
 
 // 关闭nginx
 export const stopNginx = async () => {
-    return new Promise(async (resolve)=>{
-        if(env.isWin()){
+    return new Promise(async (resolve) => {
+        if (env.isWin()) {
             await exec.once({
-                cmd:'taskkill /f /t /im easynginx.exe'
+                cmd: 'taskkill /f /t /im easynginx.exe'
             })
         }
         if (env.isMac()) {
@@ -84,16 +87,16 @@ export const stopNginx = async () => {
         }
         resolve(true)
     })
-    
+
 }
 
 // 运行-重载nginx
 export const runNginx = async () => {
     let res
-    return new Promise(async (resolve)=>{
+    return new Promise(async (resolve) => {
         if (env.isWin()) {
             res = await isNginxRunning()
-            if(res){
+            if (res) {
                 await stopNginx()
             }
             exec.once({
@@ -110,5 +113,25 @@ export const runNginx = async () => {
         }
         resolve(true)
     })
-    
+
+}
+
+// 更新nginx配置
+export const updateNginxConf = () => {
+    return new Promise(async (resolve, reject) => {
+        let path
+        if (env.isWin()) {
+            path=easyNginxPath+'\\conf\\nginx.conf'
+        }
+        if (env.isMac()) {
+            path='/usr/local/etc/nginx/easynginx.conf'
+        }
+        if(window.App){
+            await _fs.write({
+                text: getNginxConf(window.App.$store.state.nginx.nginxConf.projList),
+                path
+            })
+            resolve()
+        }
+    })
 }

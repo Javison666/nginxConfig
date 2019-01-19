@@ -45,7 +45,7 @@ Vue.$modal=Vue.prototype.$modal={}
 
 
 /* eslint-disable no-new */
-new Vue({
+window.App=new Vue({
 	components: {
 		App
 	},

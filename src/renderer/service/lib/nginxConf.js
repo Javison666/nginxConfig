@@ -24,7 +24,7 @@ const locationApiConf=`
             rewrite ^($api/?.*)$ /$1 break;
             proxy_pass $proxyTo;           
             client_max_body_size    50m;
-            proxy_set_header Host $host;
+            #proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;	
         }
@@ -37,6 +37,7 @@ const locationHtmlConf=`
         }
 `
 export const getNginxConf=(conf)=>{
+    console.log(conf)
     let txt=`\n`
     conf.forEach(proj=>{
         proj.list.forEach(item=>{
@@ -52,7 +53,7 @@ export const getNginxConf=(conf)=>{
                                 .replace(/\$api/g,apiPath)
                                 .replace('$proxyTo',loc.proxyTo)
                         }else{
-                            locTxt+=locationApiConf
+                            locTxt+=locationHtmlConf
                                 .replace(/\$api/g,apiPath)
                                 .replace('$htmlPath',loc.htmlPath)
                         }
@@ -64,3 +65,4 @@ export const getNginxConf=(conf)=>{
     })
     return nginxConf.replace('$serverConf',txt)
 }
+
