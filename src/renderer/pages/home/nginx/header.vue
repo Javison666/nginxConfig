@@ -31,7 +31,12 @@ export default {
         SwitchNginx
     },
     methods: {
-        installNginx
+        installNginx(){
+            installNginx()
+            setTimeout(()=>{
+                this.$store.dispatch('nginx/checkNginxIsInstalled', res)
+            },1000)
+        }
     }
 };
 </script>

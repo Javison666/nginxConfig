@@ -56,7 +56,7 @@
                         </span> -->
                         <div style="flex: 1;text-align:center;"
                             @click.stop>
-                            <span @click.stop="delItem">
+                            <span @click.stop="delItem(item)">
                                 <md-icon style="color:#ff3333">remove_circle</md-icon>
                             </span>
                         </div>

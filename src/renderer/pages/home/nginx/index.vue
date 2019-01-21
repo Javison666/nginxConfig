@@ -47,7 +47,6 @@ export default {
 				res = await this.$fs.isExist({
 					path: this.$appApi.localPath + '/nginx/easy-nginx/easynginx.exe'
 				})
-				this.$store.dispatch('nginx/checkNginxIsInstalled', res)
 			}
 			if (this.$env.ifMac) {
 				res = await this.$exec.info({
@@ -58,8 +57,8 @@ export default {
 				}else{
 					res=false
 				}
-				this.$store.dispatch('nginx/checkNginxIsInstalled', res)
 			}
+			this.$store.dispatch('nginx/checkNginxIsInstalled', res)
 			// 确定nginx是否正在运行
 			res = await isNginxRunning()
 			this.$store.dispatch('nginx/checkNginxIsRunning', res)
