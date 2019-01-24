@@ -96,7 +96,7 @@ export default {
                     apiPath:this.apiPath,
                     apiType:this.apiType,
                     proxyTo:this.proxyTo,
-                    htmlPath:this.htmlPath.replace(/\\/,'/')
+                    htmlPath:this.htmlPath.replace(/\\/g,'/')
                 }
             });
             this.active = false;

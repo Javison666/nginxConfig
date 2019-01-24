@@ -17,45 +17,18 @@
             <div class="left">
                 <md-field class="row">
                     <label>nginx服务端口：</label>
-                    <md-input v-model="serverPort"></md-input>
-                    <span class="md-helper-text"></span>
+                    <md-input v-model.trim="serverPort"></md-input>
+                    <span class="md-helper-text">例：8080</span>
                 </md-field>
-                <!-- <md-field class="row">
-                    <label>html代理地址：</label>
-                    <md-input v-model="name"></md-input>
-                    <span class="md-helper-text">
-                        例：127.0.0.1:8000
-                    </span>
-                </md-field>-->
             </div>
             <div class="right">
-                <!-- <md-field class="row" style="opacity:0;">
-                    <label>nginx服务名称：</label>
-                    <md-input v-model="serverName"></md-input>
-                    <span class="md-helper-text">非必填</span>
-                </md-field> -->
                 <md-field class="row">
                     <label>nginx服务名称：</label>
-                    <md-input v-model="serverName"></md-input>
+                    <md-input v-model.trim="serverName"></md-input>
                     <span class="md-helper-text">非必填</span>
                 </md-field>
-                <!-- <md-field class="row">
-                    <label>html代理地址：</label>
-                    <md-input v-model="name"></md-input>
-                    <span class="md-helper-text">
-                        例：127.0.0.1:8000
-                    </span>
-                </md-field>
-                <md-field class="row">
-                    <label>html静态地址：</label>
-                    <md-input v-model="name"></md-input>
-                    <span class="md-helper-text">
-                        例：C:\user\web
-                    </span>
-                </md-field>-->
             </div>
         </div>
-
         <md-dialog-actions>
             <md-button class="md-primary" @click="active = false">取消</md-button>
             <md-button class="md-primary" @click="onConfirm">保存</md-button>
@@ -92,13 +65,13 @@ export default {
             });
         },
         onConfirm() {
-            if (this.name.trim() === "") {
+            if (this.name === "") {
                 this.$toast.error("请输入项目名称", "错误", {
                     position: "topRight"
                 });
                 return (this.active = true);
             }
-            if (this.serverPort.trim() === "") {
+            if (this.serverPort === "") {
                 this.$toast.error("请输入nginx服务端口", "错误", {
                     position: "topRight"
                 });
